@@ -1,0 +1,31 @@
+.form {
+    display: inline-block;
+}
+.form-contents {
+    position: relative;
+    margin: 0 10px;
+    height: 300px;
+    width: 300px;
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+}
+.form-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+form {
+    bottom: 0;
+}
+.username {
+    margin: 160px auto;
+    height: 25px;
+    width: 200px;
+    border: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 20px;
+}

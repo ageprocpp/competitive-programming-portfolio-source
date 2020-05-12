@@ -6,7 +6,7 @@ class NavBar extends React.Component{
     render(){
         return (
             <nav className="navbar">
-                <Link className="navbar-title" to="/">
+                <Link className="navbar-title" to="/" replace>
                     Competitive Programming Portfolio
                 </Link>
             </nav>

@@ -1,17 +1,21 @@
 import React from "react"
-import {Router} from "@reach/router"
+import { Router } from "@reach/router"
 import "../stylesheets/index.css"
 import NavBar from "../routes/Navbar"
-import Home from "../routes/Home"
+import Description from "../routes/Description"
+import Forms from "../routes/Forms"
 
-class App extends React.Component{
-    render(){
+class App extends React.Component {
+    render() {
         return (
             <div className="app">
                 <NavBar />
-                <Router>
-                    <Home path="/"/>
-                </Router>
+                <div className="main">
+                    <Router>
+                        <Description path="/" />
+                    </Router>
+                    <Forms />
+                </div>
             </div>
         )
     }
