@@ -1,6 +1,7 @@
 import React from "react"
 import "../stylesheets/Form.css"
 import { navigate } from "@reach/router"
+import { withPrefix } from "gatsby"
 class Form extends React.Component {
     constructor(props) {
         super(props)
@@ -19,7 +20,7 @@ class Form extends React.Component {
     handleSubmit(event) {
         event.preventDefault()
         this.props.setInformation(this.state.contestSite, this.state.username)
-        navigate("/portfolio")
+        navigate(withPrefix("/portfolio"))
     }
     render() {
         let title

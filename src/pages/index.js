@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar"
 import Description from "../components/Description"
 import Forms from "../components/Forms"
 import Portfolio from "../components/Portfolio"
+import { withPrefix } from "gatsby"
 
 class App extends React.Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class App extends React.Component {
                 <Navbar />
                 <div className="main">
                     <Router>
-                        <Description exact path="/" />
+                        <Description exact path={withPrefix("/")} />
                     </Router>
                     <Forms
                         setInformation={this.setInformation}
@@ -40,7 +41,7 @@ class App extends React.Component {
                     />
                     <Router>
                         <Portfolio
-                            path="/portfolio"
+                            path={withPrefix("/portfolio")}
                             username={this.state.username_atcoder}
                         />
                     </Router>
