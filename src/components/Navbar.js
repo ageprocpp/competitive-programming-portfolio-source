@@ -1,9 +1,9 @@
 import React from "react"
-import {Link} from "@reach/router"
+import { Link } from "@reach/router"
 import "../stylesheets/Navbar.css"
 
-class NavBar extends React.Component{
-    render(){
+class Navbar extends React.Component {
+    render() {
         return (
             <nav className="navbar">
                 <Link className="navbar-title" to="/" replace>
@@ -14,4 +14,4 @@ class NavBar extends React.Component{
     }
 }
 
-export default NavBar
+export default Navbar
