@@ -68,5 +68,11 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
+# firebase Files
+.firebase
 .firebaserc
 firebase.json
+
+# prettier files
+.prettierrc
+.prettierignore
