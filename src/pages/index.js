@@ -11,21 +11,23 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            username_atcoder: "",
-            username_codeforces: "",
-            username_topcoder: "",
-            username_yukicoder: "",
+            username: {
+                atcoder: "",
+                codeforces: "",
+                topcoder: "",
+                yukicoder: "",
+            },
+            focusedContestSite: "",
         }
         this.setInformation = this.setInformation.bind(this)
     }
     setInformation(contestSite, username) {
-        let newState = {}
-        if (contestSite === "atcoder") newState.username_atcoder = username
-        if (contestSite === "codeforces")
-            newState.username_codeforces = username
-        if (contestSite === "topcoder") newState.username_topcoder = username
-        if (contestSite === "yukicoder") newState.username_yukicoder = username
-        this.setState(newState)
+        this.setState({
+            focusedContestSite: contestSite,
+            username: {
+                [contestSite]: username,
+            },
+        })
     }
     render() {
         return (
@@ -37,12 +39,17 @@ class App extends React.Component {
                     </Router>
                     <Forms
                         setInformation={this.setInformation}
-                        usernames={this.state}
+                        usernames={this.state.username}
                     />
                     <Router>
                         <Portfolio
                             path={withPrefix("/portfolio")}
-                            username={this.state.username_atcoder}
+                            focusedContestSite={this.state.focusedContestSite}
+                            username={
+                                this.state.username[
+                                    this.state.focusedContestSite
+                                ]
+                            }
                         />
                     </Router>
                 </div>

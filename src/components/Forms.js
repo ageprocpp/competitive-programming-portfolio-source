@@ -11,22 +11,22 @@ class Forms extends React.Component {
                     <Form
                         contestSite="atcoder"
                         setInformation={this.props.setInformation}
-                        username={this.props.username_atcoder}
+                        username={this.props.usernames.atcoder}
                     />
                     <Form
                         contestSite="codeforces"
                         setInformation={this.props.setInformation}
-                        username={this.props.username_codeforces}
+                        username={this.props.usernames.codeforces}
                     />
                     <Form
                         contestSite="topcoder"
                         setInformation={this.props.setInformation}
-                        username={this.props.username_topcoder}
+                        username={this.props.usernames.topcoder}
                     />
                     <Form
                         contestSite="yukicoder"
                         setInformation={this.props.setInformation}
-                        username={this.props.username_yukicoder}
+                        username={this.props.usernames.yukicoder}
                     />
                 </ul>
             </>
