@@ -1,0 +1,23 @@
+.portfolio-content {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    text-align: center;
+    margin: 0 20px 20px 20px;
+    width: 200px;
+    height: 120px;
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+.portfolio-content-title {
+    margin: 10px 0 0 0;
+}
+.portfolio-content-value {
+    margin: 5px 0 0 0;
+    font-size: 30px;
+}
+.portfolio-content-value-unit {
+    margin-left: 5px;
+    font-size: 20px;
+}

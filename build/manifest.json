@@ -1,0 +1,10 @@
+{
+  "short_name": "portfolio",
+  "name": "Competitive Programming Portfolio",
+  "icons": [
+    {
+      "48":"favicon.ico",
+      "96":"favicon.ico"
+    }
+  ]
+}

@@ -1,49 +1,47 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import "../stylesheets/Form.css"
-import { navigate } from "@reach/router"
-import { withPrefix } from "gatsby"
-class Form extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            username: props.username,
-            contestSite: props.contestSite,
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+import { withRouter } from "react-router-dom"
+const Form = props => {
+    const [username, setUsername] = useState(props.username)
+    const [submitted, setSubmitted] = useState(false)
+
+    const handleChange = event => {
+        setUsername(event.target.value)
     }
-    handleChange(event) {
-        this.setState({
-            username: event.target.value,
-        })
-    }
-    handleSubmit(event) {
+    const handleSubmit = event => {
         event.preventDefault()
-        this.props.setInformation(this.state.contestSite, this.state.username)
-        navigate(withPrefix("/portfolio"))
+        props.setInformation(props.contestSite, username)
+        setSubmitted(true)
     }
-    render() {
-        let title
-        if (this.state.contestSite === "atcoder") title = "AtCoder"
-        if (this.state.contestSite === "codeforces") title = "Codeforces"
-        if (this.state.contestSite === "topcoder") title = "TopCoder"
-        if (this.state.contestSite === "yukicoder") title = "yukicoder"
-        return (
-            <li className="form">
-                <div className="form-contents">
-                    <div className="form-title">{title}</div>
-                    <form onSubmit={this.handleSubmit}>
-                        <input
-                            type="text"
-                            className="username"
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                        />
-                    </form>
-                </div>
-            </li>
-        )
-    }
+
+    useEffect(() => {
+        if (submitted) {
+            props.history.push("/portfolio")
+            setSubmitted(false)
+        }
+    }, [submitted, props.history])
+
+    let title
+    if (props.contestSite === "atcoder") title = "AtCoder"
+    if (props.contestSite === "codeforces") title = "Codeforces"
+    if (props.contestSite === "topcoder") title = "TopCoder"
+    if (props.contestSite === "yukicoder") title = "yukicoder"
+
+    return (
+        <li className="form">
+            <div className="form-contents">
+                <div className="form-title">{title}</div>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        className="username"
+                        value={username}
+                        onChange={handleChange}
+                    />
+                </form>
+            </div>
+        </li>
+    )
 }
 
-export default Form
+export default withRouter(Form)

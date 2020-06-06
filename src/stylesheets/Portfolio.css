@@ -1,0 +1,13 @@
+.portfolio-main {
+    text-align: center;
+}
+.loading {
+    font-size: 50px;
+}
+.loading,
+.portfolio-contents {
+    display: block;
+    max-width: 80%;
+    margin: 30px auto 0 auto;
+    text-align: center;
+}
