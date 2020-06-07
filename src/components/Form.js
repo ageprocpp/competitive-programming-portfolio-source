@@ -17,7 +17,6 @@ const Form = props => {
 
 	useEffect(() => {
 		if (submitted) {
-			console.log(props.history)
 			props.history.push("/portfolio")
 			setSubmitted(false)
 		}
