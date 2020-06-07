@@ -4,12 +4,13 @@
   "description": "Competitive Programming Portfolio",
   "version": "0.1.0",
   "license": "MIT",
+  "homepage": "/competitive-programming-portfolio/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint src --fix",
-    "deploy": "react-scripts build & gh-pages -d build -b master -r git@github.com:ageprocpp/competitive-programming-portfolio.git"
+    "deploy": "react-scripts build && gh-pages -d build -b master -r git@github.com:ageprocpp/competitive-programming-portfolio.git"
   },
   "dependencies": {
     "eslint-plugin-react": "^7.20.0",

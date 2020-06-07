@@ -25,7 +25,7 @@ const App = () => {
 
 	return (
 		<div className="app">
-			<Router>
+			<Router basename={"competitive-programming-portfolio"}>
 				<div className="main">
 					<Navbar />
 					<Route exact path="/" component={Description} />
