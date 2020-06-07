@@ -1,10 +1,12 @@
 .portfolio-main {
     text-align: center;
 }
-.loading {
+.loading,
+.user-not-exist {
     font-size: 50px;
 }
 .loading,
+.user-not-exist,
 .portfolio-contents {
     display: block;
     max-width: 80%;

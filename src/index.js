@@ -8,49 +8,49 @@ import Forms from "./components/Forms"
 import Portfolio from "./components/Portfolio"
 
 const App = () => {
-    const [username, setUsername] = useState({
-        atcoder: "",
-        codeforces: "",
-        topcoder: "",
-        yukicoder: "",
-    })
-    const [focusedContestSite, setFocusedContestSite] = useState("")
+	const [username, setUsername] = useState({
+		atcoder: "",
+		codeforces: "",
+		topcoder: "",
+		yukicoder: "",
+	})
+	const [focusedContestSite, setFocusedContestSite] = useState("atcoder")
 
-    const setInformation = (contestSite, username) => {
-        setFocusedContestSite(contestSite)
-        setUsername(prev => {
-            return { ...prev, [contestSite]: username }
-        })
-    }
+	const setInformation = (contestSite, username) => {
+		setFocusedContestSite(contestSite)
+		setUsername(prev => {
+			return { ...prev, [contestSite]: username }
+		})
+	}
 
-    return (
-        <div className="app">
-            <Router>
-                <div className="main">
-                    <Navbar />
-                    <Route exact path="/" component={Description} />
-                    <Forms
-                        setInformation={setInformation}
-                        usernames={username}
-                    />
-                    <Route
-                        path="/portfolio"
-                        render={() => (
-                            <Portfolio
-                                focusedContestSite={focusedContestSite}
-                                username={username[focusedContestSite]}
-                            />
-                        )}
-                    />
-                </div>
-            </Router>
-        </div>
-    )
+	return (
+		<div className="app">
+			<Router>
+				<div className="main">
+					<Navbar />
+					<Route exact path="/" component={Description} />
+					<Forms
+						setInformation={setInformation}
+						usernames={username}
+					/>
+					<Route
+						path="/portfolio"
+						render={() => (
+							<Portfolio
+								focusedContestSite={focusedContestSite}
+								username={username[focusedContestSite]}
+							/>
+						)}
+					/>
+				</div>
+			</Router>
+		</div>
+	)
 }
 
 ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById("root")
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+	document.getElementById("root")
 )
