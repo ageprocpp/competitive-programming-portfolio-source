@@ -18,9 +18,9 @@ const App = () => {
 
 	const setInformation = (contestSite, username) => {
 		setFocusedContestSite(contestSite)
-		setUsername(prev => {
-			return { ...prev, [contestSite]: username }
-		})
+		setUsername(prev => ({
+			...prev, [contestSite]: username 
+		}))
 	}
 
 	return (

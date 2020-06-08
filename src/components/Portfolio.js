@@ -13,19 +13,18 @@ const Portfolio = props => {
 	const [loading, setLoading] = useState(0)
 
 	const [loadingTime, setLoadingTime] = useState(0)
-	const [data, setData] = useState({})
+	const [data, setData] = useState({
+	})
 	const [inputBool, setInputbool] = useState(true)
 	const [userExistence, setUserExistence] = useState(true)
 
 	useEffect(() => {
 		setLoadingTime(0)
-		setInputbool(true);
+		setInputbool(true)
 		setUserExistence(true)
 		const intervalId = setInterval(
 			() =>
-				setLoadingTime(prev => {
-					return prev + 1
-				}),
+				setLoadingTime(prev => prev + 1),
 			1000
 		)
 		if (props.focusedContestSite === "atcoder") {
@@ -35,20 +34,16 @@ const Portfolio = props => {
 			)
 				.then(response => response.json())
 				.then(responseJson => {
-					setData(prev => {
-						return {
-							...prev,
-							acCount: responseJson["accepted_count"],
-							acCountRank:
+					setData(prev => ({
+						...prev,
+						acCount: responseJson["accepted_count"],
+						acCountRank:
 								responseJson["accepted_count_rank"] + 1,
-							ratedPointSum: responseJson["rated_point_sum"],
-							ratedPointSumRank:
+						ratedPointSum: responseJson["rated_point_sum"],
+						ratedPointSumRank:
 								responseJson["rated_point_sum_rank"] + 1,
-						}
-					})
-					setLoading(prev => {
-						return prev - 1
-					})
+					}))
+					setLoading(prev => prev - 1)
 				})
 				.catch(err => console.error(err))
 
@@ -69,13 +64,11 @@ const Portfolio = props => {
 						if (firstAcCount[user] > firstAcCount[props.username])
 							firstAcRank++
 					}
-					setData(prev => {
-						return {
-							...prev,
-							firstAcCount: firstAcCount[props.username],
-							firstAcRank: firstAcRank,
-						}
-					})
+					setData(prev => ({
+						...prev,
+						firstAcCount: firstAcCount[props.username],
+						firstAcRank: firstAcRank,
+					}))
 
 					let fastestCodeCount = {
 						[props.username]: 0,
@@ -97,13 +90,11 @@ const Portfolio = props => {
 						)
 							fastestCodeRank++
 					}
-					setData(prev => {
-						return {
-							...prev,
-							fastestCodeCount: fastestCodeCount[props.username],
-							fastestCodeRank: fastestCodeRank,
-						}
-					})
+					setData(prev => ({
+						...prev,
+						fastestCodeCount: fastestCodeCount[props.username],
+						fastestCodeRank: fastestCodeRank,
+					}))
 
 					let shortestCodeCount = {
 						[props.username]: 0,
@@ -126,30 +117,22 @@ const Portfolio = props => {
 							shortestCodeRank++
 					}
 
-					setData(prev => {
-						return {
-							...prev,
-							shortestCodeCount:
+					setData(prev => ({
+						...prev,
+						shortestCodeCount:
 								shortestCodeCount[props.username],
-							shortestCodeRank: shortestCodeRank,
-						}
-					})
-					setLoading(prev => {
-						return prev - 1
-					})
+						shortestCodeRank: shortestCodeRank,
+					}))
+					setLoading(prev => prev - 1)
 				})
 				.catch(err => console.error(err))
 
 			fetch("https://kenkoooo.com/atcoder/resources/streaks.json")
 				.then(response => response.json())
 				.then(responseJson => {
-					let userData = responseJson.filter(item => {
-						return item.user_id === props.username
-					})
+					let userData = responseJson.filter(item => item.user_id === props.username)
 					if (userData[0] === undefined) {
-						setLoading(prev => {
-							return prev - 1
-						})
+						setLoading(prev => prev - 1)
 						return
 					}
 					let longestStreakRank = 1
@@ -157,16 +140,12 @@ const Portfolio = props => {
 						if (user.streak > userData[0].streak)
 							longestStreakRank++
 					})
-					setData(prev => {
-						return {
-							...prev,
-							longestStreak: userData[0].streak,
-							longestStreakRank: longestStreakRank,
-						}
-					})
-					setLoading(prev => {
-						return prev - 1
-					})
+					setData(prev => ({
+						...prev,
+						longestStreak: userData[0].streak,
+						longestStreakRank: longestStreakRank,
+					}))
+					setLoading(prev => prev - 1)
 				})
 			fetch(
 				`https://cpportfolio-backend.herokuapp.com/atcoder/?username=${props.username}`
@@ -174,34 +153,42 @@ const Portfolio = props => {
 				.then(response => {
 					if (!response.ok) {
 						setUserExistence(false)
-						setLoading(prev => {
-							return prev - 1
-						})
+						setLoading(prev => prev - 1)
 						if (props.username === "") setInputbool(false)
-						else throw new Error("Such a user does not exist")
+						else return new Error("Such a user does not exist")
 					}
 					return response.json()
 				})
 				.then(responseJson => {
-					setData(prev => {
-						return {
-							...prev,
-							rating: responseJson.rating,
-							ratingRank: responseJson.ratingRank,
-							participatedRatedContests:
+					setData(prev => ({
+						...prev,
+						rating: responseJson.rating,
+						ratingRank: responseJson.ratingRank,
+						participatedRatedContests:
 								responseJson.participatedRatedContests,
-							participatedContests:
+						participatedContests:
 								responseJson.participatedContests,
-						}
-					})
-					setLoading(prev => {
-						return prev - 1
-					})
+					}))
+					setLoading(prev => prev - 1)
 				})
 				.catch(err => console.error(err))
-			return () => {
-				clearInterval(intervalId)
-			}
+		}
+		else if(props.focusedContestSite === "codeforces"){
+			setLoading(1)
+			fetch(`https://codeforces.com/api/user.info?lang=en&handles=${props.username}`)
+				.then(response => response.json())
+				.then(responseJson => {
+					console.log(responseJson)
+					setData(prev => ({
+						...prev,
+						rating: responseJson.result[0].rating,
+						contribution: responseJson.result[0].contribution
+					}))
+					setLoading(prev => prev - 1)
+				})
+		}
+		return () => {
+			clearInterval(intervalId)
 		}
 	}, [props.focusedContestSite, props.username])
 
@@ -227,70 +214,88 @@ const Portfolio = props => {
 			</>
 		)
 	}
-	return (
-		<>
-			<hr />
-			<div className="portfolio-main">
-				<div className="portfolio-contents">
-					<PortfolioContents
-						title="Rating"
-						value={data.rating}
-						valueUnit=""
-						subValue={data.ratingRank}
-						subValueUnit=""
-					/>
-					<PortfolioContents
-						title="Participated Contests"
-						value={data.participatedContests}
-						valueUnit=""
-						subValue={`Rated:${data.participatedRatedContests}`}
-					/>
-					<PortfolioContents
-						title="AC Count"
-						value={data.acCount}
-						valueUnit=""
-						subValue={data.acCountRank}
-						subValueUnit={getOrdinal(data.acCountRank)}
-					/>
-					<PortfolioContents
-						title="Rated Point Sum"
-						value={data.ratedPointSum}
-						valueUnit="pt"
-						subValue={data.ratedPointSumRank}
-						subValueUnit={getOrdinal(data.ratedPointSumRank)}
-					/>
-					<PortfolioContents
-						title="First AC"
-						value={data.firstAcCount}
-						valueUnit=""
-						subValue={data.firstAcRank}
-						subValueUnit={getOrdinal(data.firstAcRank)}
-					/>
-					<PortfolioContents
-						title="Fastest Code"
-						value={data.fastestCodeCount}
-						valueUnit=""
-						subValue={data.fastestCodeRank}
-						subValueUnit={getOrdinal(data.fastestCodeRank)}
-					/>
-					<PortfolioContents
-						title="Shortest Code"
-						value={data.shortestCodeCount}
-						valueUnit=""
-						subValue={data.shortestCodeRank}
-						subValueUnit={getOrdinal(data.shortestCodeRank)}
-					/>
-					<PortfolioContents
-						title="Longest Streak"
-						value={data.longestStreak}
-						valueUnit="days"
-						subValue={data.longestStreakRank}
-						subValueUnit={getOrdinal(data.longestStreakRank)}
-					/>
+	if(props.focusedContestSite === "atcoder"){
+		return (
+			<>
+				<hr />
+				<div className="portfolio-main">
+					<div className="portfolio-contents">
+						<PortfolioContents
+							title="Rating"
+							value={data.rating}
+							valueUnit=""
+							subValue={data.ratingRank}
+							subValueUnit=""
+						/>
+						<PortfolioContents
+							title="Participated Contests"
+							value={data.participatedContests}
+							valueUnit=""
+							subValue={`Rated:${data.participatedRatedContests}`}
+						/>
+						<PortfolioContents
+							title="AC Count"
+							value={data.acCount}
+							valueUnit=""
+							subValue={data.acCountRank}
+							subValueUnit={getOrdinal(data.acCountRank)}
+						/>
+						<PortfolioContents
+							title="Rated Point Sum"
+							value={data.ratedPointSum}
+							valueUnit="pt"
+							subValue={data.ratedPointSumRank}
+							subValueUnit={getOrdinal(data.ratedPointSumRank)}
+						/>
+						<PortfolioContents
+							title="First AC"
+							value={data.firstAcCount}
+							valueUnit=""
+							subValue={data.firstAcRank}
+							subValueUnit={getOrdinal(data.firstAcRank)}
+						/>
+						<PortfolioContents
+							title="Fastest Code"
+							value={data.fastestCodeCount}
+							valueUnit=""
+							subValue={data.fastestCodeRank}
+							subValueUnit={getOrdinal(data.fastestCodeRank)}
+						/>
+						<PortfolioContents
+							title="Shortest Code"
+							value={data.shortestCodeCount}
+							valueUnit=""
+							subValue={data.shortestCodeRank}
+							subValueUnit={getOrdinal(data.shortestCodeRank)}
+						/>
+						<PortfolioContents
+							title="Longest Streak"
+							value={data.longestStreak}
+							valueUnit="days"
+							subValue={data.longestStreakRank}
+							subValueUnit={getOrdinal(data.longestStreakRank)}
+						/>
+					</div>
 				</div>
-			</div>
-		</>
-	)
+			</>
+		)
+	}
+	else if(props.focusedContestSite === "codeforces"){
+		return (
+			<>
+				<hr />
+				<div className="portfolio-main">
+					<div className="portfolio-contents">
+						<PortfolioContents
+							title="Rating"
+							value={data.rating}
+							valueUnit=""
+						/>
+					</div>
+				</div>
+			</>
+		)
+	}
 }
 
 Portfolio.propTypes = {
