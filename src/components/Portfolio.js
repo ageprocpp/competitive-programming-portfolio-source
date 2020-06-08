@@ -28,7 +28,7 @@ const Portfolio = props => {
 			1000
 		)
 		if (props.focusedContestSite === "atcoder") {
-			setLoading(4)
+			setLoading(prev => prev + 4)
 			fetch(
 				`https://kenkoooo.com/atcoder/atcoder-api/v2/user_info?user=${props.username}`
 			)
@@ -154,8 +154,9 @@ const Portfolio = props => {
 					if (!response.ok) {
 						setUserExistence(false)
 						setLoading(prev => prev - 1)
+						console.log(props.username)
 						if (props.username === "") setInputbool(false)
-						else return new Error("Such a user does not exist")
+						else Promise.reject("Such a user does not exist")
 					}
 					return response.json()
 				})
